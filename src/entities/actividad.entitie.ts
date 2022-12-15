@@ -1,8 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
-import { Rol } from "./rol.entitie";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn,BaseEntity } from "typeorm";
+import { Usuario } from "./usuario.entitie";
+
+
+export enum ETipoActividad {
+  QUIZ = "QUIZ",
+  TALLER = "TALLER"
+}
 
 @Entity()
-export class Usuario {
+export class Actividad  extends BaseEntity{
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -10,21 +16,35 @@ export class Usuario {
   @Column()
   nombre: string;
 
-  @Column()
-  apellido: string;
+  @Column( )
+  fecha_apertura: string;
+
+  @Column({ type: "timestamp" })
+  fecha_cierre: string;
 
   @Column()
-  correo: string;
+  duracion: number;
+
+  @ManyToOne(() => Usuario)
+  @JoinColumn({ name: "usuario_id" })
+  usuario: Usuario;
 
   @Column()
-  fecha_ingreso: string;
+  ponderacion: number;
 
-  @Column({ default: false })
-  activo: boolean;
 
-  @ManyToOne(() => Rol, (rol) => rol.usuarios)
-  @JoinColumn({ name: "rol_id" })
-  rol: Rol
+  @Column({
+    type: "enum",
+    enum: ETipoActividad
+  })
+  tipo: ETipoActividad.QUIZ | ETipoActividad.TALLER;
+
+  @Column({ type: "timestamp" })
+  fecha_creacion: boolean;
+
+  @Column({ type: "timestamp" })
+  fecha_actualizacion: boolean;
+
 
 }
 

@@ -1,12 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get,Param } from '@nestjs/common';
+import { UsuarioService } from "./usuario.service";
+import { Usuario } from "../../entities/usuario.entitie";
 
-@Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+@Controller("usuario")
+export class UsuarioController {
+  constructor(private readonly usuarioService: UsuarioService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getAll(): Promise<Usuario[]> {
+    return this.usuarioService.findAll();
   }
+
+  @Get('/:id')
+  getId(@Param('id')id:number): Promise<Usuario> {
+    return this.usuarioService.findOne(id);
+  }
+
 }

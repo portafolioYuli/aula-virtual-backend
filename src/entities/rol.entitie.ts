@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinTable } from "typeorm";
+import { Usuario } from "./usuario.entitie";
 
 @Entity()
-export class Usuario {
+export class Rol {
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -10,20 +11,15 @@ export class Usuario {
   nombre: string;
 
   @Column()
-  apellido: string;
+  codigo: string;
 
-  @Column()
-  correo: string;
-
-  @Column()
-  fecha_ingreso: string;
 
   @Column({ default: false })
   activo: boolean;
 
-  @ManyToOne(() => Rol, (rol) => rol.usuarios)
-  user: Rol
+  @OneToMany(() => Usuario, (usuario) => usuario.rol)
+  @JoinTable()
+  usuarios: Usuario[]
 
-rol_id
 }
 
