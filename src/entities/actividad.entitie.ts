@@ -1,5 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn,BaseEntity } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  BaseEntity,
+  OneToMany,
+  JoinTable
+} from "typeorm";
 import { Usuario } from "./usuario.entitie";
+import { Pregunta } from "./pregunta.entitie";
 
 
 export enum ETipoActividad {
@@ -44,6 +54,11 @@ export class Actividad  extends BaseEntity{
 
   @Column({ type: "timestamp" })
   fecha_actualizacion: boolean;
+
+  @OneToMany(() => Pregunta, (pregunta) => pregunta.actividad,{cascade:true})
+  @JoinTable()
+  preguntas: Pregunta[]
+
 
 
 }

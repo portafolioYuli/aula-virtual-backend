@@ -3,6 +3,10 @@ export enum TipoActividadEnum {
   QUIZ = "QUIZ",
   TALLER = "TALLER"
 }
+export interface PreguntaInterface{
+  nombre: string;
+  ponderacion: number;
+}
 
 export interface ActividadInterface {
 
@@ -14,6 +18,7 @@ export interface ActividadInterface {
   usuarioId: number;
   ponderacion: number;
   tipo: TipoActividadEnum;
+  preguntas:PreguntaInterface[];
 
 
 }

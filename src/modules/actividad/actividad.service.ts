@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { Actividad, ETipoActividad } from "../../entities/actividad.entitie";
 import { ActividadInterface } from "./actividad.interface";
 import { Usuario } from "../../entities/usuario.entitie";
+import { Pregunta } from "../../entities/pregunta.entitie";
 
 
 @Injectable()
@@ -19,14 +20,15 @@ export class ActividadService {
   findAll(): Promise<Actividad[]> {
     return this.repository.find({
         relations: {
-          usuario: true
+          usuario: true,
+          preguntas: true
         }
       }
     );
   }
 
   findOne(id: number): Promise<Actividad> {
-    return this.repository.findOneBy({ id:id });
+    return this.repository.findOneBy({ id: id });
   }
 
   async remove(id: string): Promise<void> {
@@ -41,6 +43,7 @@ export class ActividadService {
     actividadEntity.fecha_apertura = actividad.fecha_apertura;
     actividadEntity.fecha_cierre = actividad.fecha_cierre;
     actividadEntity.ponderacion = actividad.ponderacion;
+
     await this.repositoryUsuario
       .findOneBy({ id: actividad.usuarioId })
       .then(value => actividadEntity.usuario = value);
@@ -51,6 +54,17 @@ export class ActividadService {
     } else {
       actividadEntity.tipo = ETipoActividad.TALLER;
     }
+    actividadEntity.preguntas = [];
+
+    actividad.preguntas.forEach((value) => {
+      let pregunta: Pregunta = Pregunta.create();
+      pregunta.nombre = value.nombre;
+      pregunta.ponderacion = value.ponderacion;
+      pregunta.usuario = actividadEntity.usuario;
+
+      actividadEntity.preguntas.push(pregunta);
+    });
+
 
     return this.repository.save(actividadEntity);
   }
