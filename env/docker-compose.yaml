@@ -22,7 +22,7 @@ services:
 
   rest:
     build: ../
-    command: npm run start:prod
+    command: npm run start
     volumes:
       - /usr/src/app
     environment:
