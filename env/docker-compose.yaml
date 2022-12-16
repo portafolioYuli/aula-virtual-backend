@@ -12,13 +12,28 @@ services:
       MYSQL_ROOT_HOST: '%'
     ports:
       # <Port exposed> : < MySQL Port running inside container>
-      - '3306:3306'
+      - '3360:3306'
     expose:
       # Opens port 3306 on the container
-      - '3360:3306'
+      - '3360'
       # Where our data will be persisted
     volumes:
       - db-test:/var/lib/mysql
+
+  rest:
+    build: ../
+    command: npm run start:prod
+    volumes:
+      - /usr/src/app
+    environment:
+      DB_HOST: "db"
+    ports:
+      - "80:3000"
+    depends_on:
+      - db
+    links:
+      - db
+
 # Names our volume
 volumes:
   db-test:

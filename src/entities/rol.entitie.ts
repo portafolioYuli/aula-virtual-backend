@@ -15,7 +15,7 @@ export class Rol {
 
 
   @Column({ default: false })
-  activo: boolean;
+  activo: boolean; 
 
   @OneToMany(() => Usuario, (usuario) => usuario.rol)
   @JoinTable()
