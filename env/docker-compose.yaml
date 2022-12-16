@@ -2,6 +2,7 @@ version: '3.3'
 services:
   db:
     image: mysql:latest
+    restart: always
     environment:
       MYSQL_DATABASE: 'db'
       # You can use whatever password you like
