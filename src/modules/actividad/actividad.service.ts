@@ -32,7 +32,11 @@ export class ActividadService {
   }
 
   async remove(id: string): Promise<void> {
+   
     await this.repository.delete(id);
+    
+    //let actividad = this.repository.findOneBy({id:id});
+    //this.repository.remove(actividad);
   }
 
   async save(actividad: ActividadInterface): Promise<Actividad> {
