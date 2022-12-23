@@ -31,7 +31,7 @@ export class ActividadService {
     return this.repository.findOneBy({ id: id });
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: number): Promise<void> {
    
     await this.repository.delete(id);
     
