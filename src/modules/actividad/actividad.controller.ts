@@ -22,7 +22,11 @@ export class ActividadController {
   save(@Body() actividad:ActividadInterface): Promise<Actividad> {
     return this.actividadService.save(actividad);
   }
-
+  
+  @Delete('/:id')
+  eliminar(@Param("id") id:number): Promise<Actividad>{
+    return this.actividadService.delete(id);
+  }
 
 
 }
