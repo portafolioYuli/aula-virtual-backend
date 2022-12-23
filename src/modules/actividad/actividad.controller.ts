@@ -1,4 +1,4 @@
-import { Controller, Get, Post,Param ,Body} from "@nestjs/common";
+import {Controller, Get, Post, Param, Body, Delete} from "@nestjs/common";
 import { Usuario } from "../../entities/usuario.entitie";
 import { ActividadService } from "./actividad.service";
 import { Actividad } from "../../entities/actividad.entitie";
@@ -24,8 +24,8 @@ export class ActividadController {
   }
   
   @Delete('/:id')
-  eliminar(@Param("id") id:number): Promise<Actividad>{
-    return this.actividadService.delete(id);
+  eliminar(@Param("id") id:number): Promise<any>{
+    return this.actividadService.remove(id);
   }
 
 
