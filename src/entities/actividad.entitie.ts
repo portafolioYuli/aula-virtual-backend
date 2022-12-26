@@ -56,7 +56,7 @@ export class Actividad  extends BaseEntity{
   fecha_actualizacion: boolean;
 
   @OneToMany(() => Pregunta, (pregunta) => pregunta.actividad,{
-    onDelete: 'CASCADE'
+    cascade: ['soft-remove','insert']
   })
   @JoinTable()
   preguntas: Pregunta[]
