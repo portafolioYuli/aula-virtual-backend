@@ -55,7 +55,9 @@ export class Actividad  extends BaseEntity{
   @Column({ type: "timestamp" })
   fecha_actualizacion: boolean;
 
-  @OneToMany(() => Pregunta, (pregunta) => pregunta.actividad,{cascade:true})
+  @OneToMany(() => Pregunta, (pregunta) => pregunta.actividad,{
+    onDelete: 'CASCADE'
+  })
   @JoinTable()
   preguntas: Pregunta[]
 
