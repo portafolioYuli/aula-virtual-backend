@@ -6,6 +6,7 @@ export enum TipoActividadEnum {
 export interface PreguntaInterface{
   nombre: string;
   ponderacion: number;
+  idUsuario: number;
 }
 
 export interface ActividadInterface {

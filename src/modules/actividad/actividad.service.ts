@@ -88,6 +88,9 @@ export class ActividadService {
         let preguntaEntity: Pregunta = this.repositoryPregunta.create();
         preguntaEntity.nombre = pregunta.nombre;
         preguntaEntity.ponderacion = pregunta.ponderacion;
+        await this.repositoryUsuario
+            .findOneBy({id: pregunta.idUsuario})
+            .then(value => preguntaEntity.usuario = value);
 
         await this.repository
             .findOneBy({id: idActividad})
