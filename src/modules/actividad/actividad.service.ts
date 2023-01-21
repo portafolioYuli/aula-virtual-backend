@@ -30,7 +30,13 @@ export class ActividadService {
     }
 
     findOne(id: number): Promise<Actividad> {
-        return this.repository.findOneBy({id: id});
+        return this.repository.findOne({
+            where: { id: id },
+            relations: {
+                usuario: true,
+                preguntas: true
+            }
+        });
     }
 
     async remove(id: number): Promise<any> {
